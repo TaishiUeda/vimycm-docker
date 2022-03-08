@@ -1,6 +1,6 @@
 ARG BASE_IMG=ubuntu:18.04
 FROM ${BASE_IMG} AS vim_added
-ARG USER_NAME=qibitech
+ARG USER_NAME=vimycm
 # avoid to be asked time zone.
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Asia/Tokyo
@@ -18,7 +18,7 @@ ENV TERM=xterm-256color
 
 #install vim's plugins
 FROM vim_added AS plugin_installed
-ARG USER_NAME=qibitech
+ARG USER_NAME=vimycm
 ENV DEBIAN_FRONTEND=noninteractive
 COPY --chown=${USER_NAME}:developer install_plugins.bash ./install_plugins.bash
 COPY --chown=${USER_NAME}:developer .vimrc ./.vimrc
@@ -32,7 +32,7 @@ RUN bash install_ycm.bash
 
 #install rtag service
 FROM plugin_installed AS rtag_installed
-ARG USER_NAME=qibitech
+ARG USER_NAME=vimycm
 ENV DEBIAN_FRONTEND=noninteractive
 COPY --chown=${USER_NAME}:developer install_rtags.bash ./install_rtags.bash
 RUN bash install_rtags.bash
